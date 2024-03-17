@@ -147,6 +147,11 @@ class MainActivity : AppCompatActivity() {
 
         // Définir le layout comme contenu de l'activité
         setContentView(layout)
+
+        utton.setOnClickListener {
+            // Créer un Intent pour démarrer la nouvelle activité
+            val intent = Intent(this, NouvelleActivite::class.java)
+            startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
