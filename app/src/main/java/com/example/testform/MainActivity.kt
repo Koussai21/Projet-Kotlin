@@ -134,19 +134,25 @@ class MainActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         submitButton.setOnClickListener {
-            val country = editTextCountry.text.toString()
-            val city = editTextCity.text.toString()
+            val pays = editTextCountry.text.toString()
+            val ville = editTextCity.text.toString()
             val monuments = editTextMonuments.text.toString()
-            val review = editTextReview.text.toString()
+            val avis = editTextReview.text.toString()
 
             // Traiter les données du formulaire (vous pouvez ajouter votre logique ici)
-            val message = "Pays: $country\nVille: $city\nMonuments notables: $monuments\nAvis: $review"
+            val message = "Pays: $pays\nVille: $ville\nMonuments notables: $monuments\nAvis: $avis"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            val voyage = Voyage(pays, ville, monuments, avis, imageUri.toString())
+            val intent = Intent(this, DisplayInformation::class.java)
+            intent.putExtra("voyage", voyage)
+            startActivity(intent)
         }
         layout.addView(submitButton)
 
+
         // Définir le layout comme contenu de l'activité
         setContentView(layout)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
