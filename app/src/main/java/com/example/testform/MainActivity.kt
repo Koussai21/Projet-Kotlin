@@ -166,6 +166,7 @@ class MainActivity : AppCompatActivity() {
             // Créer un Intent pour démarrer la nouvelle activité
             val intent = Intent(this, DisplayInformation::class.java)
             startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
