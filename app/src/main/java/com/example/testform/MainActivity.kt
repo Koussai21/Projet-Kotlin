@@ -1,5 +1,3 @@
-package com.example.testform
-
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -13,12 +11,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testform.Voyage
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
 
     private val PICK_IMAGE = 100
     private var imageUri: Uri? = null
     private var imageView: ImageView? = null
+
+    // Référence à la base de données Firebase
+    private val database = FirebaseDatabase.getInstance()
+    private val voyagesRef = database.getReference("voyages")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,20 +143,22 @@ class MainActivity : AppCompatActivity() {
             val monuments = editTextMonuments.text.toString()
             val avis = editTextReview.text.toString()
 
-            // Traiter les données du formulaire (vous pouvez ajouter votre logique ici)
-            val message = "Pays: $pays\nVille: $ville\nMonuments notables: $monuments\nAvis: $avis"
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             val voyage = Voyage(pays, ville, monuments, avis, imageUri.toString())
-            val intent = Intent(this, DisplayInformation::class.java)
-            intent.putExtra("voyage", voyage)
-            startActivity(intent)
+
+            // Enregistrer les données dans la base de données Firebase
+            val key = voyagesRef.push().key
+            key?.let {
+                voyagesRef.child(it).setValue(voyage)
+            }
+
+            // Afficher un message de succès
+            Toast.makeText(this, "Voyage ajouté avec succès!", Toast.LENGTH_SHORT).show()
+            // Clear form fields if needed
         }
         layout.addView(submitButton)
 
-
         // Définir le layout comme contenu de l'activité
         setContentView(layout)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
