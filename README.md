@@ -1,7 +1,8 @@
 ﻿# Projet-Kotlin
  ## 1) Fonctions 
  Odis-e Vous permet de créer des carnets de voyage et de les consulter 
- ##2) Equipe du Projet
+ 
+ ## 2) Equipe du Projet
  - Hugo Lucas
  - Koussai Laribi
  - Staël Elangmane
